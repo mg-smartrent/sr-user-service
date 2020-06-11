@@ -128,7 +128,7 @@
                             <target>
                                 <!--Copy docker files-->
                                 <copy file="target/${project.artifactId}-${project.version}.jar"
-                                      tofile="target/${project.artifactId}.jar"/>
+                                      tofile="target/app.jar"/>
                             </target>
                         </configuration>
                         <goals>
