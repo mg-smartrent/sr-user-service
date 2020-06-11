@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>sr-user-service</artifactId>
+    <version>latest</version>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>com.mg.platform</groupId>
+        <artifactId>sr-parent</artifactId>
+        <version>2.2</version>
+        <relativePath/>
+    </parent>
+    <properties>
+        <graphql.sprq.version>0.0.4</graphql.sprq.version>
+        <graphql.version>5.0.2</graphql.version>
+        <swagger.version>2.9.2</swagger.version>
+    </properties>
+
+    <scm>
+        <url>https://github.com/mg-smartrent/sr-user-service</url>
+        <connection>scm:git:https://github.com/mg-smartrent/sr-user-service.git</connection>
+        <developerConnection>scm:git:https://github.com/mg-smartrent/sr-user-service.git
+        </developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+
+    <dependencies>
+        <!--Spring {-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
+        <!--Spring }-->
+
+        <!-- GraphQL {-->
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-spring-boot-starter</artifactId>
+            <version>${graphql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphiql-spring-boot-starter</artifactId>
+            <version>${graphql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.leangen.graphql</groupId>
+            <artifactId>graphql-spqr-spring-boot-starter</artifactId>
+            <version>${graphql.sprq.version}</version>
+        </dependency>
+        <!-- GraphQL }-->
+
+        <!--Swagger {-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <!--Swagger }-->
+
+        <!--SmartRent {-->
+        <dependency>
+            <groupId>com.mg.platform</groupId>
+            <artifactId>sr-domain</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mg.platform</groupId>
+            <artifactId>persistence</artifactId>
+            <version>2.2</version>
+        </dependency>
+        <!--SmartRent }-->
+
+        <!--Misc {-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!--Misc }-->
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--Code quality {-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <logViolationsToConsole>true</logViolationsToConsole>
+                    <configLocation>build/check-style/checkstyle-checker.xml</configLocation>
+                </configuration>
+            </plugin>
+            <!--Code quality }-->
+
+            <!--Docker {-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <configuration>
+                            <target>
+                                <!--Copy docker files-->
+                                <copy file="target/${project.artifactId}-${project.version}.jar"
+                                      tofile="target/${project.artifactId}.jar"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <configuration>
+                    <tag>${project.version}</tag>
+                </configuration>
+            </plugin>
+            <!--Docker }-->
+        </plugins>
+    </build>
+
+</project>
