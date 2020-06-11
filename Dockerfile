@@ -3,7 +3,7 @@ FROM openjdk:8-jre
 
 LABEL maintainer="SmartRent"
 # ADD MAVEN LIBS
-COPY target/classes/libs /opt/app/libs/
+COPY target/libs /opt/app/libs/
 
 # ADD SERVICE LIB
 COPY  target/app.jar /opt/app/app.jar
