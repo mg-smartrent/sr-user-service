@@ -2,7 +2,7 @@
 ##------SERVICE CONFIGURATION-----------------------------------
 ##------------------------------------------------------------------
 server:
-  port: 8082
+  port: 8080
 spring:
   application:
     name: user-service
