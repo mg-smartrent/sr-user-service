@@ -4,8 +4,8 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost/smartrent2
-      database: smartrent2
+      database: UsersDB
+      uri: mongodb://sr-mongodb/${spring.data.mongodb.database}
 
 
 
