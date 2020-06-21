@@ -4,19 +4,19 @@ metadata:
   name: sr-user-service
   namespace: default
   labels:
-    k8s-app: sr-user-service
+    app: sr-user-service
   annotations:
     deployment.kubernetes.io/revision: '1'
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: sr-user-service
+      app: sr-user-service
   template:
     metadata:
       name: sr-user-service
       labels:
-        k8s-app: sr-user-service
+        app: sr-user-service
     spec:
       containers:
         - name: sr-user-service
@@ -38,6 +38,13 @@ spec:
             initialDelaySeconds: 30
             timeoutSeconds: 15
             periodSeconds: 5
+          env:
+            - name: EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE
+              value: "http://admin:12341234@sr-api-gateway-service:8080/eureka"
+            - name: SPRING_DATA_MONGODB_DATABASE
+              value: "UsersDB"
+            - name: SPRING_DATA_MONGODB_URI
+              value: "mongodb://sr-mongodb:27017/UsersDB"
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
