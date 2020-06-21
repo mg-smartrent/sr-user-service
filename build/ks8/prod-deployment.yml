@@ -39,6 +39,8 @@ spec:
             timeoutSeconds: 15
             periodSeconds: 5
           env:
+            - name: SERVER_PORT
+              value: "8080"
             - name: EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE
               value: "http://admin:12341234@sr-api-gateway-service:8080/eureka"
             - name: SPRING_DATA_MONGODB_DATABASE
