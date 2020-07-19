@@ -43,7 +43,7 @@ jobs:
         run: mvn test -Dskip.unit.tests=false -Dskip.integration.tests=true
 
       - name: Run Integration Tests
-        run: mvn test -Dskip.unit.tests=false -Dskip.integration.tests=true
+        run: mvn test -Dskip.unit.tests=true -Dskip.integration.tests=true
 
       #---------------------------------------------------------------
       #---------------------Run ony on master branch------------------

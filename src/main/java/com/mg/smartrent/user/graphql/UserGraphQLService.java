@@ -1,7 +1,8 @@
-package com.mg.smartrent.user.service;
+package com.mg.smartrent.user.graphql;
 
 import com.mg.smartrent.domain.models.User;
 import com.mg.smartrent.domain.validation.ModelValidationException;
+import com.mg.smartrent.user.service.UserService;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLNonNull;
@@ -10,8 +11,6 @@ import io.leangen.graphql.metadata.strategy.query.AnnotatedResolverBuilder;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 import io.leangen.graphql.spqr.spring.annotations.WithResolverBuilder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @GraphQLApi
@@ -46,20 +45,20 @@ public class UserGraphQLService {
     }
 
     @GraphQLMutation
-    public boolean resetPassword(@GraphQLArgument(name = "id")
-                                 @GraphQLNonNull final String id,
-                                 @GraphQLArgument(name = "rawPassword") final String rawPassword)
+    public User resetPassword(@GraphQLArgument(name = "id")
+                              @GraphQLNonNull final String id,
+                              @GraphQLArgument(name = "rawPassword") final String rawPassword)
             throws ModelValidationException {
-        return userService.resetPassword(id, rawPassword) != null;
+        return userService.resetPassword(id, rawPassword);
     }
 
     @GraphQLQuery
-    public Optional<User> findById(@GraphQLArgument(name = "id") @GraphQLNonNull final String id) {
-        return userService.findById(id);
+    public User findById(@GraphQLArgument(name = "id") @GraphQLNonNull final String id) {
+        return userService.findById(id).orElse(null);
     }
 
     @GraphQLQuery
-    public Optional<User> findByEmail(@GraphQLArgument(name = "email") @GraphQLNonNull final String email) {
-        return userService.findByEmail(email);
+    public User findByEmail(@GraphQLArgument(name = "email") @GraphQLNonNull final String email) {
+        return userService.findByEmail(email).orElse(null);
     }
 }

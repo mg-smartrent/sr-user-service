@@ -1,4 +1,4 @@
-package com.mg.samartrent.user
+package com.mg.smartrent.user
 
 
 import com.mg.smartrent.domain.enums.EnGender

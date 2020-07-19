@@ -16,6 +16,7 @@
         <graphql.sprq.version>0.0.4</graphql.sprq.version>
         <graphql.version>5.0.2</graphql.version>
         <swagger.version>2.9.2</swagger.version>
+        <spring-cloud-contract.version>2.2.3.RELEASE</spring-cloud-contract.version>
     </properties>
 
     <scm>
@@ -44,6 +45,11 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-contract-verifier</artifactId>
+            <scope>test</scope>
         </dependency>
         <!--Spring }-->
 
@@ -113,6 +119,15 @@
                 <configuration>
                     <logViolationsToConsole>true</logViolationsToConsole>
                     <configLocation>build/check-style/checkstyle-checker.xml</configLocation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+                <version>${spring-cloud-contract.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <baseClassForTests>com.mg.smartrent.user.integration.ContractTestSetup</baseClassForTests>
                 </configuration>
             </plugin>
             <!--Code quality }-->
