@@ -46,6 +46,14 @@ jobs:
         run: mvn clean verify -Dskip.unit.tests=true -Dskip.integration.tests=false -Djacoco.skip=true
 
       #---------------------------------------------------------------
+      #---------------------Run ony on non-master branch--------------
+      #---------------------------------------------------------------
+
+      - name: Publish to GitHub Packages
+        if: github.ref != 'refs/heads/master'
+        run: mvn -B deploy --file pom.xml
+
+      #---------------------------------------------------------------
       #---------------------Run ony on master branch------------------
       #---------------------------------------------------------------
 
