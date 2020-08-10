@@ -20,6 +20,9 @@ import java.util.Optional;
 import static com.mg.smartrent.domain.enums.EnGender.Unknown;
 import static com.mg.smartrent.domain.enums.EnUserStatus.Active;
 
+/**
+ * This is an implementation of Spring Cloud contract.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class ContractTestSetup {
@@ -60,7 +63,6 @@ public abstract class ContractTestSetup {
         User disabledUser = buildDefaultUser();
         disabledUser.setEnabled(false);
         Mockito.when(userService.enable(Mockito.anyString(), Mockito.eq(false))).thenReturn(disabledUser);
-
     }
 
     private User buildDefaultUser() {
