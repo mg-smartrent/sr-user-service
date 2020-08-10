@@ -51,7 +51,7 @@ jobs:
 
       - name: Publish to GitHub Packages
         if: github.ref == 'refs/heads/master'
-        run: mvn -B deploy --file pom.xml
+        run: mvn -B deploy --file pom.xml -Dskip.unit.tests=true -Dskip.integration.tests=true -Djacoco.skip=true
 
       #---------------------------------------------------------------
       #---------------------Run ony on master branch------------------
